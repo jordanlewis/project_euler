@@ -4,7 +4,7 @@ def rotations(x):
     x = [l for l in str(x)]
     for _ in xrange(len(x) - 1):
         x.append(x.pop(0))
-        yield int("".join(x))
+        yield "".join(x)
 
 
 
@@ -20,12 +20,15 @@ primefile.close()
 x = 123456
 for r in rotations(x):
     print r
+
 circulars = []
 for prime in primes:
-    circular = 1
+    if not all([(int(i) % 2) for i in str(prime)]):
+        continue
+    circular = True
     for num in rotations(prime):
         if num not in primes:
-            circular = 0
+            circular = False
             break
     if circular:
         print prime
